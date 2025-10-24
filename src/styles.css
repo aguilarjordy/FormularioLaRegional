@@ -1,5 +1,5 @@
 /* ===========================
-   🌄 La Regional - Estilos Andinos
+   🌄 La Regional - Estilos Andinos Mejorados
    =========================== */
 
 :root {
@@ -23,6 +23,7 @@ body {
   background-attachment: fixed;
   background-size: contain;
   background-repeat: repeat;
+  animation: fadeBackground 2s ease-in-out;
 }
 
 .bg-peru-pattern {
@@ -34,6 +35,7 @@ body {
     url("https://www.transparenttextures.com/patterns/aztec.png");
   background-size: cover;
   background-position: center;
+  animation: fadeBackground 2s ease-in-out;
 }
 
 /* ===========================
@@ -43,12 +45,15 @@ body {
   background: var(--peru-card);
   border-radius: 18px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  animation: fadeZoomIn 1.2s ease forwards;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
 }
 
 /* ===========================
@@ -65,6 +70,7 @@ body {
 h3, h2, h1 {
   font-weight: 700;
   letter-spacing: 0.5px;
+  animation: slideDown 1s ease-in-out;
 }
 
 /* ===========================
@@ -82,13 +88,30 @@ h3, h2, h1 {
   color: white;
   border: none;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
   font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-peru::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.5s ease;
+}
+
+.btn-peru:hover::before {
+  left: 100%;
 }
 
 .btn-peru:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 15px rgba(217, 164, 65, 0.45);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 6px 18px rgba(217, 164, 65, 0.55);
   opacity: 0.95;
 }
 
@@ -100,7 +123,8 @@ h3, h2, h1 {
   border: 1.5px solid #e0e0e0;
   padding: 10px 14px;
   font-size: 0.95rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeUp 1.2s ease forwards;
 }
 
 .form-control:focus {
@@ -108,10 +132,10 @@ h3, h2, h1 {
   box-shadow: 0 0 0 0.15rem rgba(217, 164, 65, 0.25);
 }
 
-/* Etiquetas */
 .form-label {
   color: var(--peru-earth);
   font-weight: 600;
+  animation: slideRight 0.8s ease forwards;
 }
 
 /* ===========================
@@ -120,6 +144,7 @@ h3, h2, h1 {
 .Toastify__toast {
   border-radius: 10px !important;
   font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 .Toastify__toast--success {
@@ -133,12 +158,23 @@ h3, h2, h1 {
 }
 
 /* ===========================
-   🧶 Animaciones suaves
+   🧶 Animaciones personalizadas
    =========================== */
+@keyframes fadeZoomIn {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(25px);
   }
   to {
     opacity: 1;
@@ -146,8 +182,42 @@ h3, h2, h1 {
   }
 }
 
+@keyframes fadeBackground {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Aplicar fácilmente */
 .fade-up {
-  animation: fadeUp 0.8s ease forwards;
+  animation: fadeUp 1s ease forwards;
 }
 
 /* ===========================
