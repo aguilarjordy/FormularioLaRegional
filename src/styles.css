@@ -1,63 +1,76 @@
 :root {
-  --color-rojo: #b22222;
-  --color-dorado: #f7b500;
-  --color-arequipeno: #fff8f0;
-  --color-texto: #3b2f2f;
-}
-
-/* Fondo inspirado en tejidos peruanos */
-.registro-bg {
-  background: linear-gradient(135deg, #fff8f0 0%, #fdf2d7 100%);
-  background-image: url("https://www.transparenttextures.com/patterns/paper-fibers.png");
-  animation: fondoMov 15s ease-in-out infinite alternate;
-}
-
-@keyframes fondoMov {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 100% 100%;
-  }
+  --color-rojo: #b12a2a;
+  --color-oro: #d4a017;
+  --color-fondo: #fff8f2;
+  --color-cafe: #5a2a1e;
+  --color-claro: #fff;
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  background: var(--color-arequipeno);
-  color: var(--color-texto);
+  font-family: 'Poppins', system-ui, sans-serif;
+  margin: 0;
+  background: var(--color-fondo);
+  color: #222;
 }
 
-.card {
-  border-radius: 18px !important;
-  background: #fffaf5;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.registro-fondo {
+  background: linear-gradient(180deg, #fff8f2 0%, #ffe3b0 100%);
+  animation: fondoMove 10s ease-in-out infinite alternate;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(178, 34, 34, 0.2);
+@keyframes fondoMove {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
 }
 
-.btn-danger {
-  background-color: var(--color-rojo);
+.registro-card {
+  border-radius: 20px;
+  background: var(--color-claro);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.registro-card:hover {
+  transform: translateY(-3px);
+}
+
+.titulo-principal {
+  color: var(--color-rojo);
+  font-weight: 700;
+}
+
+.boton-principal {
+  background: var(--color-rojo);
   border: none;
-  transition: all 0.3s ease;
+  color: white;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.btn-danger:hover {
-  background-color: #931c1c;
+.boton-principal:hover {
+  background: var(--color-oro);
   transform: scale(1.03);
 }
 
-.text-danger {
-  color: var(--color-rojo) !important;
+.logo-animado {
+  animation: pulsoLogo 3s infinite ease-in-out;
 }
 
-.text-warning {
-  color: var(--color-dorado) !important;
+@keyframes pulsoLogo {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  transition: border-color 0.2s;
 }
 
 .form-control:focus {
-  border-color: var(--color-dorado);
-  box-shadow: 0 0 0 0.2rem rgba(247, 181, 0, 0.25);
+  border-color: var(--color-oro);
+  box-shadow: 0 0 5px rgba(212, 160, 23, 0.3);
 }
