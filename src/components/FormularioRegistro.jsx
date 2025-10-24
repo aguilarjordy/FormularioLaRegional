@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import { motion } from "framer-motion";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FormularioRegistro() {
   const navigate = useNavigate();
@@ -71,10 +72,10 @@ export default function FormularioRegistro() {
   };
 
   return (
-    <div className="registro-fondo min-vh-100 d-flex align-items-center justify-content-center p-4">
+    <div className="bg-peru-pattern min-vh-100 d-flex align-items-center justify-content-center p-4">
       <ToastContainer />
       <motion.div
-        className="card shadow-lg border-0 registro-card"
+        className="card shadow-lg border-0 form-card"
         style={{ maxWidth: "600px", width: "100%" }}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -83,76 +84,53 @@ export default function FormularioRegistro() {
         <div className="card-body">
           <motion.div
             className="text-center mb-4"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.2 }}
           >
             <img
               src="/logo.png"
               alt="La Regional"
-              className="mb-3 rounded-circle border border-warning-subtle logo-animado"
+              className="mb-3 rounded-circle border border-3 border-peru"
               style={{ width: "90px" }}
             />
-            <h3 className="fw-bold titulo-principal">La Regional contigo</h3>
+            <h3 className="fw-bold text-peru">La Regional contigo</h3>
             <p className="text-muted small">
-              Queremos que seas parte de nuestra historia. Al compartir tus datos,
-              te acercas a nuestras promociones, eventos y experiencias que celebran lo que somos.
+              Queremos que seas parte de nuestra historia. Coméntanos y
+              conéctate con los sabores y tradiciones que nos unen.
             </p>
           </motion.div>
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Nombre completo</label>
-              <input
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
-                className="form-control"
-                required
-                placeholder="Tu nombre completo"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Número de celular (WhatsApp)</label>
-              <input
-                name="celular"
-                value={formData.celular}
-                onChange={handleChange}
-                className="form-control"
-                required
-                placeholder="Ej: 987654321"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Correo electrónico</label>
-              <input
-                type="email"
-                name="correo"
-                value={formData.correo}
-                onChange={handleChange}
-                className="form-control"
-                required
-                placeholder="tucorreo@gmail.com"
-              />
-            </div>
-
-            <div className="mb-3">
-              <label className="form-label fw-semibold">Distrito o zona</label>
-              <input
-                name="distrito"
-                value={formData.distrito}
-                onChange={handleChange}
-                className="form-control"
-                required
-                placeholder="Ej: Miraflores, Cusco..."
-              />
-            </div>
+            {[
+              { label: "Nombre completo", name: "nombre", placeholder: "Tu nombre completo" },
+              { label: "Número de celular (WhatsApp)", name: "celular", placeholder: "Ej: 987654321" },
+              { label: "Correo electrónico", name: "correo", placeholder: "tucorreo@gmail.com", type: "email" },
+              { label: "Distrito o zona", name: "distrito", placeholder: "Ej: Miraflores, Cusco..." },
+            ].map((field, i) => (
+              <motion.div
+                className="mb-3"
+                key={i}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 * i }}
+              >
+                <label className="form-label fw-semibold">{field.label}</label>
+                <input
+                  type={field.type || "text"}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className="form-control"
+                  required
+                  placeholder={field.placeholder}
+                />
+              </motion.div>
+            ))}
 
             <div className="mb-3">
               <label className="form-label fw-semibold">
-                ¿Qué producto o sabor te conecta con tu historia?
+                Cuéntanos, ¿Qué producto o sabor te conecta con tu historia?
               </label>
               <textarea
                 name="producto"
@@ -198,11 +176,11 @@ export default function FormularioRegistro() {
             </div>
 
             <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               type="submit"
-              className="btn boton-principal w-100 fw-bold"
+              className="btn btn-peru w-100 fw-bold"
               disabled={loading}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
             >
               {loading ? (
                 <>
@@ -215,11 +193,17 @@ export default function FormularioRegistro() {
             </motion.button>
           </form>
 
-          <div className="text-center mt-3">
+          <motion.div
+            className="text-center mt-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+          >
             <p className="text-muted small">
-              🎁 Al registrarte participas en el sorteo mensual de una caja regional con productos de tu tierra.
+              🎁 Al registrarte participas en el sorteo mensual de una caja regional
+              con productos de tu tierra.
             </p>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </div>
