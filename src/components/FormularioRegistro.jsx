@@ -106,7 +106,7 @@ export default function FormularioRegistro() {
               className="mb-3 rounded-circle border border-3 border-peru"
               style={{ width: "90px" }}
             />
-            <h3 className="fw-bold text-peru">La Regional contigo</h3>
+            <h3 className="fw-bold text-peru">La Regional Market</h3>
             <p className="text-muted small">
               Queremos que seas parte de nuestra historia. Coméntanos y
               conéctate con los sabores y tradiciones que nos unen.
