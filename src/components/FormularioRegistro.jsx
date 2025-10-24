@@ -19,6 +19,18 @@ export default function FormularioRegistro() {
 
   const [loading, setLoading] = useState(false);
 
+  // Lista de distritos de Lima Metropolitana
+  const distritos = [
+    "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo",
+    "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "Jesús María",
+    "La Molina", "La Victoria", "Lince", "Los Olivos", "Lurigancho-Chosica", "Lurín",
+    "Magdalena del Mar", "Miraflores", "Pachacámac", "Pucusana", "Pueblo Libre", "Puente Piedra",
+    "Punta Hermosa", "Punta Negra", "Rímac", "San Bartolo", "San Borja", "San Isidro",
+    "San Juan de Lurigancho", "San Juan de Miraflores", "San Luis", "San Martín de Porres",
+    "San Miguel", "Santa Anita", "Santa María del Mar", "Santa Rosa", "Santiago de Surco",
+    "Surquillo", "Villa El Salvador", "Villa María del Triunfo"
+  ];
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -102,32 +114,88 @@ export default function FormularioRegistro() {
           </motion.div>
 
           <form onSubmit={handleSubmit}>
-            {[
-              { label: "Nombre completo", name: "nombre", placeholder: "Tu nombre completo" },
-              { label: "Número de celular (WhatsApp)", name: "celular", placeholder: "Ej: 987654321" },
-              { label: "Correo electrónico", name: "correo", placeholder: "tucorreo@gmail.com", type: "email" },
-              { label: "Distrito o zona", name: "distrito", placeholder: "Ej: Miraflores, Cusco..." },
-            ].map((field, i) => (
-              <motion.div
-                className="mb-3"
-                key={i}
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 * i }}
-              >
-                <label className="form-label fw-semibold">{field.label}</label>
-                <input
-                  type={field.type || "text"}
-                  name={field.name}
-                  value={formData[field.name]}
-                  onChange={handleChange}
-                  className="form-control"
-                  required
-                  placeholder={field.placeholder}
-                />
-              </motion.div>
-            ))}
+            {/* Nombre */}
+            <motion.div
+              className="mb-3"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <label className="form-label fw-semibold">Nombre completo</label>
+              <input
+                type="text"
+                name="nombre"
+                value={formData.nombre}
+                onChange={handleChange}
+                className="form-control"
+                required
+                placeholder="Tu nombre completo"
+              />
+            </motion.div>
 
+            {/* Celular */}
+            <motion.div
+              className="mb-3"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <label className="form-label fw-semibold">Número de celular (WhatsApp)</label>
+              <input
+                type="text"
+                name="celular"
+                value={formData.celular}
+                onChange={handleChange}
+                className="form-control"
+                required
+                placeholder="Ej: 987654321"
+              />
+            </motion.div>
+
+            {/* Correo */}
+            <motion.div
+              className="mb-3"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <label className="form-label fw-semibold">Correo electrónico</label>
+              <input
+                type="email"
+                name="correo"
+                value={formData.correo}
+                onChange={handleChange}
+                className="form-control"
+                required
+                placeholder="tucorreo@gmail.com"
+              />
+            </motion.div>
+
+            {/* Distrito */}
+            <motion.div
+              className="mb-3"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <label className="form-label fw-semibold">Distrito o zona</label>
+              <select
+                name="distrito"
+                value={formData.distrito}
+                onChange={handleChange}
+                className="form-control"
+                required
+              >
+                <option value="">Selecciona tu distrito</option>
+                {distritos.map((d) => (
+                  <option key={d} value={d}>
+                    {d}
+                  </option>
+                ))}
+              </select>
+            </motion.div>
+
+            {/* Producto */}
             <div className="mb-3">
               <label className="form-label fw-semibold">
                 Cuéntanos, ¿Qué producto o sabor te conecta con tu historia?
@@ -142,6 +210,7 @@ export default function FormularioRegistro() {
               ></textarea>
             </div>
 
+            {/* Noticias */}
             <div className="mb-3">
               <label className="form-label fw-semibold">
                 ¿Te gustaría recibir noticias de La Regional?
@@ -175,6 +244,7 @@ export default function FormularioRegistro() {
               </div>
             </div>
 
+            {/* Botón */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

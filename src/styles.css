@@ -3,17 +3,15 @@
    =========================== */
 
 :root {
-  --peru-red: #b12a2a; /* Rojo tradicional */
-  --peru-gold: #d9a441; /* Dorado cálido */
-  --peru-earth: #8b5e3c; /* Marrón tierra */
-  --peru-bg: #fff8f2; /* Fondo suave */
+  --peru-red: #b12a2a;
+  --peru-gold: #d9a441;
+  --peru-earth: #8b5e3c;
+  --peru-bg: #fff8f2;
   --peru-card: #ffffff;
   --peru-muted: #6c757d;
 }
 
-/* ===========================
-   🏔️ Fondo y estructura general
-   =========================== */
+/* Fondo general */
 body {
   font-family: "Poppins", system-ui, sans-serif;
   margin: 0;
@@ -23,9 +21,10 @@ body {
   background-attachment: fixed;
   background-size: contain;
   background-repeat: repeat;
-  animation: fadeBackground 2s ease-in-out;
+  animation: fadeBackground 1.4s ease-in-out;
 }
 
+/* Fondo principal */
 .bg-peru-pattern {
   background: linear-gradient(
       180deg,
@@ -35,54 +34,39 @@ body {
     url("https://www.transparenttextures.com/patterns/aztec.png");
   background-size: cover;
   background-position: center;
-  animation: fadeBackground 2s ease-in-out;
+  animation: fadeBackground 1.4s ease-in-out;
 }
 
-/* ===========================
-   🪶 Tarjetas y estructura
-   =========================== */
+/* Tarjeta */
 .card {
   background: var(--peru-card);
   border-radius: 18px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  animation: fadeZoomIn 1.2s ease forwards;
+  animation: fadeZoomIn 1s ease forwards;
 }
 
-.card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
-}
-
-/* ===========================
-   🌺 Tipografía y texto
-   =========================== */
+/* Textos */
 .text-peru {
   color: var(--peru-red);
 }
 
-.text-muted {
-  color: var(--peru-muted) !important;
+/* Select (combo box) */
+select.form-control {
+  appearance: none;
+  background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%238b5e3c' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  background-size: 16px;
+  padding-right: 2.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-h3, h2, h1 {
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  animation: slideDown 1s ease-in-out;
+select.form-control:hover {
+  border-color: var(--peru-gold);
+  box-shadow: 0 0 0 0.15rem rgba(217, 164, 65, 0.25);
 }
 
-/* ===========================
-   🧵 Bordes y detalles
-   =========================== */
-.border-peru {
-  border-color: var(--peru-gold) !important;
-}
-
-/* ===========================
-   🎨 Botones
-   =========================== */
+/* Botón */
 .btn-peru {
   background: linear-gradient(90deg, var(--peru-red), var(--peru-gold));
   color: white;
@@ -94,72 +78,13 @@ h3, h2, h1 {
   overflow: hidden;
 }
 
-.btn-peru::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transition: all 0.5s ease;
-}
-
-.btn-peru:hover::before {
-  left: 100%;
-}
-
 .btn-peru:hover {
   transform: translateY(-3px) scale(1.04);
   box-shadow: 0 6px 18px rgba(217, 164, 65, 0.55);
   opacity: 0.95;
 }
 
-/* ===========================
-   ✏️ Formularios
-   =========================== */
-.form-control {
-  border-radius: 10px;
-  border: 1.5px solid #e0e0e0;
-  padding: 10px 14px;
-  font-size: 0.95rem;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  animation: fadeUp 1.2s ease forwards;
-}
-
-.form-control:focus {
-  border-color: var(--peru-gold);
-  box-shadow: 0 0 0 0.15rem rgba(217, 164, 65, 0.25);
-}
-
-.form-label {
-  color: var(--peru-earth);
-  font-weight: 600;
-  animation: slideRight 0.8s ease forwards;
-}
-
-/* ===========================
-   🧉 Toasts (notificaciones)
-   =========================== */
-.Toastify__toast {
-  border-radius: 10px !important;
-  font-weight: 500;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
-}
-
-.Toastify__toast--success {
-  background: var(--peru-gold) !important;
-  color: #fff !important;
-}
-
-.Toastify__toast--error {
-  background: var(--peru-red) !important;
-  color: #fff !important;
-}
-
-/* ===========================
-   🧶 Animaciones personalizadas
-   =========================== */
+/* Animaciones */
 @keyframes fadeZoomIn {
   from {
     opacity: 0;
@@ -171,68 +96,13 @@ h3, h2, h1 {
   }
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 @keyframes fadeBackground {
   from {
     opacity: 0;
-    filter: blur(6px);
+    filter: blur(4px);
   }
   to {
     opacity: 1;
     filter: blur(0);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideRight {
-  from {
-    opacity: 0;
-    transform: translateX(-25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Aplicar fácilmente */
-.fade-up {
-  animation: fadeUp 1s ease forwards;
-}
-
-/* ===========================
-   🧭 Responsividad
-   =========================== */
-@media (max-width: 768px) {
-  .card {
-    padding: 1rem !important;
-  }
-
-  .form-control {
-    font-size: 0.9rem;
-  }
-
-  .btn-peru {
-    font-size: 0.9rem;
   }
 }
