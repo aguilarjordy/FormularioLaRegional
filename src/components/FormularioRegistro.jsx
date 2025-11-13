@@ -19,7 +19,6 @@ export default function FormularioRegistro() {
 
   const [loading, setLoading] = useState(false);
 
-  // Lista de distritos de Lima Metropolitana
   const distritos = [
     "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo",
     "Chorrillos", "Cieneguilla", "Comas", "El Agustino", "Independencia", "Jesús María",
@@ -63,12 +62,15 @@ export default function FormularioRegistro() {
         position: "bottom-center",
       });
     } else {
+      // Guardar nombre en localStorage
+      localStorage.setItem("nombreRegistro", formData.nombre);
+
       toast.success("✅ ¡Gracias por registrarte! Redirigiendo...", {
         position: "bottom-center",
       });
 
       setTimeout(() => {
-        navigate("/registro-exitoso");
+        navigate("/registro-exitoso", { state: { nombre: formData.nombre } });
       }, 2000);
 
       setFormData({
@@ -270,8 +272,7 @@ export default function FormularioRegistro() {
             transition={{ delay: 0.6 }}
           >
             <p className="text-muted small">
-              🎁 Al registrarte participas en el sorteo mensual de una caja regional
-              con productos de tu tierra.
+              🎁 Al registrarte recibirás un descuento en la compra que realices en ese momento.
             </p>
           </motion.div>
         </div>
