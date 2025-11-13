@@ -62,7 +62,7 @@ export default function FormularioRegistro() {
         position: "bottom-center",
       });
     } else {
-      // Guardar nombre en localStorage
+      // Guardar nombre temporalmente en localStorage
       localStorage.setItem("nombreRegistro", formData.nombre);
 
       toast.success("✅ ¡Gracias por registrarte! Redirigiendo...", {
@@ -272,7 +272,7 @@ export default function FormularioRegistro() {
             transition={{ delay: 0.6 }}
           >
             <p className="text-muted small">
-              🎁 Al registrarte recibirás un descuento en la compra que realices en ese momento.
+              🎁 Al registrarte recibirás un descuento en tu compra al mostrar el mensaje de validación al encargado.
             </p>
           </motion.div>
         </div>

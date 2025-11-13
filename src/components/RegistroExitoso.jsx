@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function RegistroExitoso() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [nombre, setNombre] = useState("");
 
   useEffect(() => {
@@ -19,6 +20,11 @@ export default function RegistroExitoso() {
       setNombre("amigo");
     }
   }, [location.state]);
+
+  const handleVolver = () => {
+    localStorage.removeItem("nombreRegistro");
+    navigate("/");
+  };
 
   return (
     <div className="bg-peru-pattern min-vh-100 d-flex align-items-center justify-content-center text-center p-4">
@@ -43,11 +49,14 @@ export default function RegistroExitoso() {
           Gracias <strong>{nombre}</strong> por ser parte de <strong>La Regional</strong>.<br />
           Muy pronto recibirás nuestras novedades y promociones exclusivas.
         </p>
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Link to="/" className="btn btn-peru fw-bold mt-3">
-            Volver al inicio
-          </Link>
-        </motion.div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={handleVolver}
+          className="btn btn-peru fw-bold mt-3"
+        >
+          Volver al inicio
+        </motion.button>
       </motion.div>
     </div>
   );
