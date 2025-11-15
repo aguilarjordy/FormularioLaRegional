@@ -2,6 +2,15 @@
    🌄 La Regional - Estilos Andinos Mejorados
    =========================== */
 
+/* 🚨 RESET OBLIGATORIO PARA PANTALLA COMPLETA 🚨 */
+html, #root, .app-root {
+  /* Asegura que ocupan toda la altura y anchura del viewport */
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --peru-red: #b12a2a;
   --peru-gold: #d9a441;
@@ -11,20 +20,31 @@
   --peru-muted: #6c757d;
 }
 
-/* Fondo general */
+/* 🖼️ FONDO PRINCIPAL DEL LOGIN (SOLUCIÓN FIXTURE) */
 body {
   font-family: "Poppins", system-ui, sans-serif;
-  margin: 0;
   color: #222;
-  background: linear-gradient(180deg, var(--peru-bg), #ffffff);
-  background-image: url("https://www.transparenttextures.com/patterns/aztec.png");
-  background-attachment: fixed;
-  background-size: contain;
-  background-repeat: repeat;
+  /* El body debe ocupar el 100% */
+  height: 100%;
+  margin: 0 !important; 
+  padding: 0 !important;
+
+  /* 🔑 CLAVE: Usamos la imagen como fondo fijo en el body */
+  background-image: url("/fondo_login.jpg"); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  
+  /* El fondo de color y textura de antes lo mantenemos solo para el fallback */
+  background-color: var(--peru-bg);
+  background-attachment: fixed; /* Asegura que el fondo permanezca fijo */
+  
   animation: fadeBackground 1.4s ease-in-out;
 }
 
-/* Fondo principal */
+/* --- Fin de Reseteos y Fondo Fijo --- */
+
+/* Fondo principal (Si se usa en otros componentes) */
 .bg-peru-pattern {
   background: linear-gradient(
       180deg,
