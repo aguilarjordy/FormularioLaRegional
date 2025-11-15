@@ -38,10 +38,13 @@ export default function FormularioRegistro() {
     if (name === "celular") {
       const soloNumeros = value.replace(/\D/g, "");
       if (soloNumeros.length <= 9) {
-        setFormData({ ...formData, [name]: soloNumeros });
+        // CAMBIO CLAVE: Usa trim() para asegurar que no haya espacios al final
+        setFormData({ ...formData, [name]: soloNumeros.trim() });
       }
       return;
     }
+
+    // ... (el resto de la función sigue igual)
 
     setFormData({
       ...formData,
