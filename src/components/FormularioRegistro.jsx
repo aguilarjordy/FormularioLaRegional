@@ -4,6 +4,22 @@ import { supabase } from "../supabaseClient";
 import { ToastContainer, toast } from "react-toastify";
 import { motion } from "framer-motion";
 import "react-toastify/dist/ReactToastify.css";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa"; // 💡 Íconos de redes sociales
+
+// 🔑 URLS de tus redes sociales (¡REEMPLAZA ESTO!)
+const SOCIAL_LINKS = {
+  facebook: "https://www.facebook.com/laregionalmarket?locale=es_LA",
+  instagram: "https://www.instagram.com/laregionalmarket/",
+  tiktok: "https://www.tiktok.com/@laregionalmarket",
+  whatsapp: "https://wa.me/51958700568",
+};
+
+// 🔑 Estilo para los íconos
+const socialIconStyle = {
+  fontSize: "2rem",
+  color: "#6c757d", // Color gris
+  transition: "color 0.3s",
+};
 
 export default function FormularioRegistro() {
   const navigate = useNavigate();
@@ -18,7 +34,7 @@ export default function FormularioRegistro() {
   });
 
   const [loading, setLoading] = useState(false);
-  const [errorNoticias, setErrorNoticias] = useState(false); // estado para marcar error en las noticias
+  const [errorNoticias, setErrorNoticias] = useState(false);
 
   const distritos = [
     "Ancón", "Ate", "Barranco", "Breña", "Carabayllo", "Cercado de Lima", "Chaclacayo",
@@ -34,24 +50,27 @@ export default function FormularioRegistro() {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Solo números y máximo 9 dígitos en celular
     if (name === "celular") {
       const soloNumeros = value.replace(/\D/g, "");
       if (soloNumeros.length <= 9) {
-        // CAMBIO CLAVE: Usa trim() para asegurar que no haya espacios al final
         setFormData({ ...formData, [name]: soloNumeros.trim() });
       }
       return;
     }
 
-    // ... (el resto de la función sigue igual)
+    if (name === "correo") {
+        // Manejo especial para el correo dividido
+        const [username, domain] = formData.correo.split("@");
+        const newUsername = e.target.value;
+        setFormData({ ...formData, correo: `${newUsername}@${domain || "gmail.com"}` });
+        return;
+    }
 
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value,
     });
 
-    // si marca alguna opción de noticias, se quita el error visual
     if (name === "noticiasWhatsapp" || name === "noticiasCorreo") {
       setErrorNoticias(false);
     }
@@ -60,7 +79,6 @@ export default function FormularioRegistro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validación celular
     if (formData.celular.length !== 9) {
       toast.warning("⚠️ El número de celular debe tener exactamente 9 dígitos.", {
         position: "bottom-center",
@@ -68,7 +86,6 @@ export default function FormularioRegistro() {
       return;
     }
 
-    // Validación: debe elegir al menos una forma de recibir noticias
     if (!formData.noticiasWhatsapp && !formData.noticiasCorreo) {
       setErrorNoticias(true);
       toast.warning("⚠️ Selecciona al menos una opción para recibir noticias de La Regional.", {
@@ -79,7 +96,6 @@ export default function FormularioRegistro() {
 
     setLoading(true);
 
-    // 🔑 CREACIÓN DEL OBJETO DE DATOS
     const dataToInsert = {
       nombre: formData.nombre,
       celular: formData.celular,
@@ -89,8 +105,6 @@ export default function FormularioRegistro() {
       noticias_whatsapp: formData.noticiasWhatsapp,
       noticias_correo: formData.noticiasCorreo,
     };
-
-    // ❌ LÍNEA ELIMINADA: console.log("🔥 PAYLOAD A SUPABASE:", dataToInsert);
 
     const { error } = await supabase.from("registros").insert([dataToInsert]);
 
@@ -154,6 +168,51 @@ export default function FormularioRegistro() {
             </p>
           </motion.div>
 
+          {/* 🚀 Íconos de Redes Sociales */}
+          <p className="text-center small">
+            Síguenos en nuestras redes sociales:
+          </p>
+          <div className="d-flex justify-content-center gap-4 mb-4">
+            <motion.a
+              href={SOCIAL_LINKS.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: "#4267B2" }}
+              style={socialIconStyle}
+            >
+              <FaFacebook />
+            </motion.a>
+            <motion.a
+              href={SOCIAL_LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: "#E1306C" }}
+              style={socialIconStyle}
+            >
+              <FaInstagram />
+            </motion.a>
+            <motion.a
+              href={SOCIAL_LINKS.tiktok}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: "#000000" }}
+              style={socialIconStyle}
+            >
+              <FaTiktok />
+            </motion.a>
+            <motion.a
+              href={SOCIAL_LINKS.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1, color: "#25D366" }}
+              style={socialIconStyle}
+            >
+              <FaWhatsapp />
+            </motion.a>
+          </div>
+          {/* Fin del bloque de íconos */}
+
+
           <form onSubmit={handleSubmit}>
             {/* Nombre */}
             <motion.div className="mb-3" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>
@@ -194,10 +253,7 @@ export default function FormularioRegistro() {
                   type="text"
                   name="correo"
                   value={formData.correo.split("@")[0]}
-                  onChange={(e) => {
-                    const domain = formData.correo.split("@")[1] || "gmail.com";
-                    setFormData({ ...formData, correo: `${e.target.value}@${domain}` });
-                  }}
+                  onChange={handleChange} 
                   className="form-control border-end-0"
                   required
                   placeholder="tucorreo"
